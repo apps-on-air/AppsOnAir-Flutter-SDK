@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Xyz</string>
+    <string name="update_title">app update available</string>
+    <string name="update_force_dsc"> An update is available that must be installed.</string>
+    <string name="update_dsc">An update is available. Would you like to install it?</string>
+    <string name="btn_no_thanks">No, thanks</string>
+    <string name="maintenance">app is under maintenance</string>
+
+</resources>

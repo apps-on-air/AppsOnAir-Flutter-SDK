@@ -1,0 +1,29 @@
+PODS:
+  - AppsOnAir (0.1.0)
+  - Flutter (1.0.0)
+  - flutter_app_update_package (0.1.0):
+    - AppsOnAir
+    - Flutter
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_app_update_package (from `.symlinks/plugins/flutter_app_update_package/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AppsOnAir
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_app_update_package:
+    :path: ".symlinks/plugins/flutter_app_update_package/ios"
+
+SPEC CHECKSUMS:
+  AppsOnAir: a529f0ba6fccd86221cb04e5e05ec342974e450f
+  Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
+  flutter_app_update_package: 80d5a7ccdd7713377dca68bfc83daba865eb25e0
+
+PODFILE CHECKSUM: af3a4dc8fcad174575527d14704362c1877ff1f4
+
+COCOAPODS: 1.11.3
