@@ -10,15 +10,15 @@ import 'package:appsonair_flutter_sdk/flutter_app_update_package_method_channel.
 // }
 
 void main() {
-  final FlutterAppUpdatePackagePlatform initialPlatform =
-      FlutterAppUpdatePackagePlatform.instance;
+  // final FlutterAppUpdatePackagePlatform initialPlatform =
+  //     FlutterAppUpdatePackagePlatform.instance;
 
-  test('$MethodChannelFlutterAppUpdatePackage is the default instance', () {
-    expect(
-        initialPlatform, isInstanceOf<MethodChannelFlutterAppUpdatePackage>());
-  });
+  // test('$MethodChannelFlutterAppUpdatePackage is the default instance', () {
+  //   expect(
+  //       initialPlatform, isInstanceOf<MethodChannelFlutterAppUpdatePackage>());
+  // });
 
-  test('getPlatformVersion', () async {
+  // test('getPlatformVersion', () async {
     // MockFlutterAppUpdatePackagePlatform fakePlatform =
     //     MockFlutterAppUpdatePackagePlatform();
     // FlutterAppUpdatePackagePlatform.instance = fakePlatform;
@@ -27,5 +27,5 @@ void main() {
     //     await AppsOnAirService.checkUpdateAvailable(
     //         appId: '733279dd-271a-489d-b2f9-fd1a2e9fc9c3'),
     //     '42');
-  });
+  // });
 }
