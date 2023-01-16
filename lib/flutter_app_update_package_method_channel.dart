@@ -15,9 +15,9 @@ class MethodChannelFlutterAppUpdatePackage
   final methodChannel = const MethodChannel('updateCheck/isUpdateAvailable');
 
   ///[context] is required to show dialog
-  ///[isShowNative] is used to show [customWidget] 
+  ///[isShowNative] is used to show [customWidget]
   ///[isShowNative] turn it off if you want to show your [customWidget]
-  /// you can show your [customWidget] ui  
+  /// you can show your [customWidget] ui
   @override
   Future<Map<String, dynamic>> initMethod(
     BuildContext context, {
@@ -37,7 +37,6 @@ class MethodChannelFlutterAppUpdatePackage
           ///custom ui dialog
           _alertDialog(widget);
         }
-        
       }
     });
 

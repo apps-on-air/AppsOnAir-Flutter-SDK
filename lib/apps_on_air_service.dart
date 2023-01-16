@@ -9,11 +9,10 @@ class AppsOnAirService {
   ///[appId] is required to connect with backend
   ///
   ///[isShowNativeUI] is used to show [customWidget]
-  ///you can use your [customWidget] by just return your widget from function 
+  ///you can use your [customWidget] by just return your widget from function
   ///
   ///[isShowNativeUI] false if you want to show your [customWidget],by default its true
   ///
-  
 
   static Future<Map<String, dynamic>?> checkUpdateAvailable(
     BuildContext context, {
