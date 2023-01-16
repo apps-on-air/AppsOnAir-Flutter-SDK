@@ -1,9 +1,9 @@
 ## AppsOnAir App_update_package
 
-# flutter_app_update_package_example
+# appsonair_flutter_sdk_example
 
 ```dart
-import 'package:flutter_app_update_package/apps_on_air_service.dart';
+import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 ```
 
  - Use this code after initializing [MaterialApp]

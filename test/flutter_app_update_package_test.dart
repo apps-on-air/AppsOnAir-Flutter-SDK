@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_app_update_package/apps_on_air_service.dart';
-import 'package:flutter_app_update_package/flutter_app_update_package_platform_interface.dart';
-import 'package:flutter_app_update_package/flutter_app_update_package_method_channel.dart';
+import 'package:appsonair_flutter_sdk/flutter_app_update_package_platform_interface.dart';
+import 'package:appsonair_flutter_sdk/flutter_app_update_package_method_channel.dart';
 
 // class MockFlutterAppUpdatePackagePlatform
 //     with MockPlatformInterfaceMixin
