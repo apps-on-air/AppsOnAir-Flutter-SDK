@@ -1,6 +1,6 @@
 name: appsonair_flutter_sdk
 description: AppsOnAir flutter sdk enables you to configure the version update of your app directly through AppsOnAir.
-version: 0.1.0
+version: 0.1.1
 # homepage:
 repository: https://github.com/apps-on-air/AppsOnAir-Flutter-SDK
 
