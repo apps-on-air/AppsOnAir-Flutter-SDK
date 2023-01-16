@@ -1,7 +1,7 @@
 import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter_app_update_package/apps_on_air_service.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
