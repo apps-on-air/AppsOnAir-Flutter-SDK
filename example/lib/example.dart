@@ -1,6 +1,5 @@
+import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 import 'package:flutter/material.dart';
-
-import 'package:flutter_app_update_package/apps_on_air_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,8 +46,9 @@ class _DemoApppState extends State<DemoAppp> {
   void initState() {
     AppsOnAirService.checkUpdateAvailable(
       context,
-      appId: '*********-e640-477c-aa48-***********',
-      isShowNativeUI: false,
+      appId: '733279dd-271a-489d-b2f9-fd1a2e9fc9c3',
+          
+      isShowNativeUI: true,
 
       ///use customWidget only if you want to use Your custom ui,
       ///make sure to pass false in param [isShowNativeUi]
