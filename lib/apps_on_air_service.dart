@@ -17,7 +17,7 @@ class AppsOnAirService {
   static Future<Map<String, dynamic>?> checkUpdateAvailable(
     BuildContext context, {
     required String appId,
-    bool isShowNativeUI = false,
+    bool isShowNativeUI = true,
     Widget Function(Map<String, dynamic>)? customWidget,
   }) {
     return FlutterAppUpdatePackagePlatform.instance.initMethod(context,
