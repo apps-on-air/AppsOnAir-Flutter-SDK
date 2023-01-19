@@ -22,13 +22,13 @@ class MethodChannelFlutterAppUpdatePackage
   Future<Map<String, dynamic>> initMethod(
     BuildContext context, {
     required String appId,
-    bool isShowNativeUI = true,
+    bool showNativeUI = true,
     Widget Function(Map<String, dynamic> response)? customWidget,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       this.context = context;
       final result = await methodChannel.invokeMethod(
-          'setApplicationID', {"AppId": appId, "isShowNative": isShowNativeUI});
+          'setApplicationID', {"AppId": appId, "isShowNative": showNativeUI});
       if (result) {
         final appUpdateResponse = await _check();
         if (customWidget != null) {
