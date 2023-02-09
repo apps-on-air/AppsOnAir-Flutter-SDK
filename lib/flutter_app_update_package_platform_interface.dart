@@ -33,7 +33,7 @@ abstract class FlutterAppUpdatePackagePlatform extends PlatformInterface {
   ///
   ///[showNativeUI] false if you want to show your [cus tomWidget],by default its true
   ///
-  Future<Map<String, dynamic>?> initMethod(
+  Future<void> initMethod(
     BuildContext context, {
     required String appId,
     bool showNativeUI = true,

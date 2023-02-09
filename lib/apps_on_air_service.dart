@@ -14,7 +14,7 @@ class AppsOnAirService {
   ///[showNativeUI] false if you want to show your [customWidget],by default its true
   ///
 
-  static Future<Map<String, dynamic>?> checkUpdateAvailable(
+  static Future<void> checkUpdateAvailable(
     BuildContext context, {
     required String appId,
     bool showNativeUI = true,
