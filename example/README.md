@@ -23,7 +23,7 @@ if you want to use your custom ui then use this
     AppsOnAirService.checkUpdateAvailable(
       context,
       appId: 'a*******-e640-477c-aa48-************', ///appId From appsOnAir Domain
-      isShowNativeUI: false,
+      showNativeUI: false,
       customWidget: (response) {
         ///return your widget here
         return Container();

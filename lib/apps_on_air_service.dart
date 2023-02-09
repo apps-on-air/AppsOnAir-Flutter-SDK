@@ -8,21 +8,19 @@ class AppsOnAirService {
   ///
   ///[appId] is required to connect with backend
   ///
-  ///[isShowNativeUI] is used to show [customWidget]
+  ///[showNativeUI] is used to show [customWidget]
   ///you can use your [customWidget] by just return your widget from function
   ///
-  ///[isShowNativeUI] false if you want to show your [customWidget],by default its true
+  ///[showNativeUI] false if you want to show your [customWidget],by default its true
   ///
 
-  static Future<Map<String, dynamic>?> checkUpdateAvailable(
+  static Future<void> checkUpdateAvailable(
     BuildContext context, {
     required String appId,
-    bool isShowNativeUI = true,
+    bool showNativeUI = true,
     Widget Function(Map<String, dynamic>)? customWidget,
   }) {
     return FlutterAppUpdatePackagePlatform.instance.initMethod(context,
-        appId: appId,
-        isShowNativeUI: isShowNativeUI,
-        customWidget: customWidget);
+        appId: appId, showNativeUI: showNativeUI, customWidget: customWidget);
   }
 }

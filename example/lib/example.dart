@@ -47,10 +47,10 @@ class _DemoApppState extends State<DemoAppp> {
     AppsOnAirService.checkUpdateAvailable(
       context,
       appId: '*********-e640-477c-aa48-***********',
-      isShowNativeUI: false,
+      showNativeUI: false,
 
       ///use customWidget only if you want to use Your custom ui,
-      ///make sure to pass false in param [isShowNativeUi]
+      ///make sure to pass false in param [showNativeUI]
       customWidget: (response) {
         return Column(children: [
           Text("Application Name : ${response["appName"]}"),
@@ -68,8 +68,11 @@ class _DemoApppState extends State<DemoAppp> {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Running on: \n'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Example Of AppsOnAir "),
+      ),
+      body: Container(),
     );
   }
 }

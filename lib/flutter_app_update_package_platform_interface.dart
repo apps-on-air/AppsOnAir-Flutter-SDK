@@ -29,14 +29,14 @@ abstract class FlutterAppUpdatePackagePlatform extends PlatformInterface {
   ///
   ///[appId] is required to connect with backend
   ///
-  ///[isShowNativeUI] is used to show [customWidget]
+  ///[showNativeUI] is used to show [customWidget]
   ///
-  ///[isShowNativeUI] false if you want to show your [cus tomWidget],by default its true
+  ///[showNativeUI] false if you want to show your [cus tomWidget],by default its true
   ///
-  Future<Map<String, dynamic>?> initMethod(
+  Future<void> initMethod(
     BuildContext context, {
     required String appId,
-    bool isShowNativeUI = true,
+    bool showNativeUI = true,
     Widget Function(Map<String, dynamic>)? customWidget,
   }) {
     throw UnimplementedError('platformVersion() has not been implemented.');

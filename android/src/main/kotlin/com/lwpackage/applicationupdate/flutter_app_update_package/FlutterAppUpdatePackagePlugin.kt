@@ -34,7 +34,7 @@ class FlutterAppUpdatePackagePlugin: FlutterPlugin, MethodCallHandler, ActivityA
     when(call.method){
       "setApplicationID" ->
         if(call.argument<Boolean>("AppId").toString() != "") {
-          AppsOnAirServices.setAppId(call.argument("AppId"), call.argument<Boolean>("isShowNative") as Boolean)
+          AppsOnAirServices.setAppId(call.argument("AppId"), call.argument<Boolean>("showNativeUI") as Boolean)
           result.success(true)
         }else{
           result.success(false)

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class MethodChannelFlutterAppUpdatePackage
     extends FlutterAppUpdatePackagePlatform {
   /// The method channel used to interact with the native platform.
   late BuildContext context;
+  bool _dialogOpen = false;
   @visibleForTesting
   final methodChannel = const MethodChannel('updateCheck/isUpdateAvailable');
 
@@ -19,29 +21,67 @@ class MethodChannelFlutterAppUpdatePackage
   ///[isShowNative] turn it off if you want to show your [customWidget]
   /// you can show your [customWidget] ui
   @override
-  Future<Map<String, dynamic>> initMethod(
+  Future<void> initMethod(
     BuildContext context, {
     required String appId,
-    bool isShowNativeUI = true,
+    bool showNativeUI = false,
     Widget Function(Map<String, dynamic> response)? customWidget,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       this.context = context;
       final result = await methodChannel.invokeMethod(
-          'setApplicationID', {"AppId": appId, "isShowNative": isShowNativeUI});
+          'setApplicationID', {"AppId": appId, "showNativeUI": showNativeUI});
       if (result) {
+        _listenToNativeMethod();
         final appUpdateResponse = await _check();
         if (customWidget != null) {
           final widget = customWidget.call(appUpdateResponse);
 
           ///custom ui dialog
-          _alertDialog(widget);
+          if (!showNativeUI) {
+            _alertDialog(widget);
+          }
         }
       }
     });
-
-    return {};
   }
+
+  void _listenToNativeMethod() {
+    if (Platform.isIOS) {
+      methodChannel.setMethodCallHandler((call) {
+        switch (call.method) {
+          case "openDialog":
+            _showIgnorePointerDialog();
+            break;
+          case "closeDialog":
+            if (_dialogOpen) {
+              _dialogOpen = false;
+              _closeDialog();
+            }
+        }
+        return Future.sync(() => _dialogOpen);
+      });
+    }
+  }
+
+  // while native dialog is open (in IOS), Flutter ui is still accessible
+  // This dialog is solution for to prevent flutter ui access
+  void _showIgnorePointerDialog() {
+    if (!_dialogOpen) {
+      _dialogOpen = true;
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        useSafeArea: false,
+        barrierColor: Colors.transparent,
+        builder: (context) => Container(
+          color: Colors.transparent,
+        ),
+      );
+    }
+  }
+
+  void _closeDialog() => Navigator.pop(context);
 
   void _alertDialog(Widget widget) {
     showDialog(
