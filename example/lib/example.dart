@@ -69,9 +69,6 @@ class _DemoApppState extends State<DemoAppp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Example Of AppsOnAir "),
-      ),
       body: Container(),
     );
   }

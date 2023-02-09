@@ -8,7 +8,7 @@ buildscript {
         buildToolsVersion = "29.0.3"
         minSdkVersion = 21
         compileSdkVersion = 30
-        targetSdkVersion = 29
+        targetSdkVersion = 33
         ndkVersion = "20.1.5948944"
     }
     repositories {
@@ -72,18 +72,12 @@ android {
         consumerProguardFiles "consumer-rules.pro"
     }
 
-//    dependencies {
-//        //noinspection GradleDynamicVersion
-//        implementation 'com.github.apps-on-air:AppsOnAir-Android-SDK:1.0.0'
-//
-//
-//    }
     lintOptions {
         disable 'InvalidPackage'
     }
 
     dependencies {
-        implementation 'com.github.apps-on-air:AppsOnAir-Android-SDK:1.0.3'
+        implementation 'com.github.apps-on-air:AppsOnAir-Android-SDK:1.0.4'
 
     }
 
