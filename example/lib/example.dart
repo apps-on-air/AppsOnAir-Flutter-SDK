@@ -2,6 +2,7 @@ import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 import 'package:flutter/material.dart';
 
 void main() async {
+  AppsOnAir.initialize('*********-e640-477c-aa48-***********');
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -44,9 +45,8 @@ class DemoAppp extends StatefulWidget {
 class _DemoApppState extends State<DemoAppp> {
   @override
   void initState() {
-    AppsOnAirService.checkUpdateAvailable(
+    AppsOnAir.checkUpdateAvailable(
       context,
-      appId: '*********-e640-477c-aa48-***********',
       showNativeUI: false,
 
       ///use customWidget only if you want to use Your custom ui,

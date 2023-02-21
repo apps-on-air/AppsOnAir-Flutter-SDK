@@ -6,7 +6,7 @@ public class SwiftFlutterAppUpdatePackagePlugin: NSObject, FlutterPlugin {
     
     private var appId: String = ""
     private var window: UIWindow?
-    let appUpdateManager = UpdateManager()
+    let appsOnAirService = AppsOnAirServices()
     static var channel:FlutterMethodChannel = FlutterMethodChannel()
     
     public override init() {
@@ -28,7 +28,7 @@ public class SwiftFlutterAppUpdatePackagePlugin: NSObject, FlutterPlugin {
             if let args = call.arguments as? Dictionary<String, Any>,
                let appId = args["AppId"] as? String, let showNativeUI  = args["showNativeUI"] as? Bool{
                 do{
-                    appUpdateManager.setAppId(appId, showNativeUI)
+                    appsOnAirService.setAppId(appId, showNativeUI)
                 }catch let error {
                     print("Failed to load: \(error.localizedDescription)")
                 }
@@ -37,7 +37,7 @@ public class SwiftFlutterAppUpdatePackagePlugin: NSObject, FlutterPlugin {
                 result(false)
             }
         } else if("isUpdateAvailable" == call.method){
-            appUpdateManager.checkForAppUpdate { (appUpdateData) in
+            appsOnAirService.checkForAppUpdate { (appUpdateData) in
                 result(appUpdateData)
             }
         }else{
