@@ -7,14 +7,16 @@ import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 ```
 
  - Use this code after initializing [MaterialApp]
- - Use this code in initState  
+ - Use this code in initState
+ - showNativeUI set true, by default its false
+ - showNativeUI set false only if you want to show customUI, 
 
 First initialize AppsOnAir by using below code
 
 
 ```dart
 void main() async {
-  AppsOnAir.initialize('*********-e640-477c-aa48-***********'); ///appId From https://appsonair.com/
+  AppsOnAir.setAppId('*********-e640-477c-aa48-***********',showNativeUI: true); ///appId From https://appsonair.com/
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
@@ -23,23 +25,21 @@ void main() async {
 if you want to use default(native) ui then use this
 
 ```dart
-    AppsOnAir.checkUpdateAvailable(
+    AppsOnAir.checkForAppUpdate(
       context,
     );
 ```
 
-if you want to use your custom ui then use this
+if you want to use your custom ui then use this, make sure you 
 ```dart
-    AppsOnAir.checkUpdateAvailable(
+    AppsOnAir.checkForAppUpdate(
       context,
-      isShowNativeUI: false,
       customWidget: (response) {
         ///return your widget here
         return Container();
       },
     );
 ```
-
 
 
 - [Android/iOS Update Mode](https://doc.dev.appsonair.com/#androidios-update-mode)

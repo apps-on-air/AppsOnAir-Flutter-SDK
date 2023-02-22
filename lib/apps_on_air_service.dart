@@ -11,30 +11,46 @@ class AppsOnAir {
   ///[showNativeUI] is used to show [customWidget]
   ///you can use your [customWidget] by just return your widget from function
   ///
-  ///[showNativeUI] false if you want to show your [customWidget],by default its true
+  ///[showNativeUI] false if you want to show your [customWidget],by default its false
+  ///set to 'true' if you want to show native ui.
   ///
-  ///[initialize] initialization of AppsOnAir is Required, you can get your [appID] on https://appsonair.com/,
+  ///[setAppId] initialization of AppsOnAir is Required, you can get your [appID] on https://appsonair.com/,
   ///
 
   static String _appId = '';
 
-  static initialize(String appId) {
+  static bool _showNativeUI = false;
+
+  static setAppId(String appId, {bool showNativeUI = false}) {
     _appId = appId;
+    _showNativeUI = showNativeUI;
   }
 
-  static Future<void> checkUpdateAvailable(
+  static void checkForAppUpdate(
     BuildContext context, {
-    bool showNativeUI = true,
     Widget Function(Map<String, dynamic>)? customWidget,
   }) {
     if (_appId.isNotEmpty) {
-      return FlutterAppUpdatePackagePlatform.instance.initMethod(context,
+      if (!_showNativeUI && customWidget == null) {
+        throw Exception(
+          "set showNativeUI = 'true' in  setAppId()"
+          " or/else return your custom widget in checkForAppUpdate() Method ",
+        );
+      } else if (_showNativeUI && customWidget != null) {
+        _printWarning(
+            "set showNativeUI = 'false' to show custom ui in setAppId() or/else remove custom widget from checkForAppUpdate() method");
+      }
+      FlutterAppUpdatePackagePlatform.instance.initMethod(context,
           appId: _appId,
-          showNativeUI: showNativeUI,
+          showNativeUI: _showNativeUI,
           customWidget: customWidget);
     } else {
       throw Exception(
           "Make sure you initialized AppsOnAir by calling initialize() method");
     }
+  }
+
+  static void _printWarning(String text) {
+    print('[33m$text[0m');
   }
 }
