@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'flutter_app_update_package_platform_interface.dart';
@@ -51,6 +52,8 @@ class AppsOnAir {
   }
 
   static void _printWarning(String text) {
-    print('[33m$text[0m');
+    if (kDebugMode) {
+      print('[33m$text[0m');
+    }
   }
 }
