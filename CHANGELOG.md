@@ -1,3 +1,7 @@
+## 0.2.1
+- 🐞 Minor bug fixes.
+- 🛠️ Performance improvements. 
+
 ## 0.2.0
 - Saperate app initialization method and usage.
 - AppsOnAir flutter sdk enables you to configure the version update of your app directly through AppsOnAir.
