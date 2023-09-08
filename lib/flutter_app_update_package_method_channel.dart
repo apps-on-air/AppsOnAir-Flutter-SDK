@@ -25,7 +25,7 @@ class MethodChannelFlutterAppUpdatePackage
     BuildContext context, {
     required String appId,
     bool showNativeUI = false,
-    Widget Function(Map<String, dynamic> response)? customWidget,
+    Widget? Function(Map<String, dynamic> response)? customWidget,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       this.context = context;
@@ -38,7 +38,7 @@ class MethodChannelFlutterAppUpdatePackage
           final widget = customWidget.call(appUpdateResponse);
 
           ///custom ui dialog
-          if (!showNativeUI) {
+          if (!showNativeUI && widget != null) {
             _alertDialog(widget);
           }
         }
@@ -86,9 +86,15 @@ class MethodChannelFlutterAppUpdatePackage
   void _alertDialog(Widget widget) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) {
-        return AlertDialog(
-          content: widget,
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: AlertDialog(
+            content: widget,
+          ),
         );
       },
     );

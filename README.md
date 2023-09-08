@@ -18,7 +18,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  appsonair_flutter_sdk: ^0.2.1
+  appsonair_flutter_sdk: ^0.2.2
 ```
 
 ```dart

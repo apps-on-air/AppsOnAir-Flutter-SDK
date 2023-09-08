@@ -29,7 +29,7 @@ class AppsOnAir {
 
   static void checkForAppUpdate(
     BuildContext context, {
-    Widget Function(Map<String, dynamic>)? customWidget,
+    Widget? Function(Map<String, dynamic>)? customWidget,
   }) {
     if (_appId.isNotEmpty) {
       if (!_showNativeUI && customWidget == null) {
