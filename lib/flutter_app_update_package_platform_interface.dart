@@ -37,7 +37,7 @@ abstract class FlutterAppUpdatePackagePlatform extends PlatformInterface {
     BuildContext context, {
     required String appId,
     bool showNativeUI = true,
-    Widget Function(Map<String, dynamic>)? customWidget,
+    Widget? Function(Map<String, dynamic>)? customWidget,
   }) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }

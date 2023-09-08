@@ -1,3 +1,9 @@
+
+## 0.2.2
+- 🐞 Minor bug fixes.
+- 🛠️ Performance improvements. 
+
+
 ## 0.2.1
 - 🐞 Minor bug fixes.
 - 🛠️ Performance improvements. 
