@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'flutter_app_update_package_platform_interface.dart';
+import 'src/model/app_info_model.dart';
 
 /// An implementation of [FlutterAppUpdatePackagePlatform] that uses method channels.
 class MethodChannelFlutterAppUpdatePackage
@@ -25,18 +26,19 @@ class MethodChannelFlutterAppUpdatePackage
     BuildContext context, {
     required String appId,
     bool showNativeUI = false,
-    Widget? Function(Map<String, dynamic> response)? customWidget,
+    Widget? Function(AppInfo response)? customWidget,
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       this.context = context;
       final result = await methodChannel.invokeMethod(
           'setApplicationID', {"AppId": appId, "showNativeUI": showNativeUI});
       if (result) {
+        
         _listenToNativeMethod();
         final appUpdateResponse = await _check();
         if (customWidget != null) {
           final widget = customWidget.call(appUpdateResponse);
-
+        
           ///custom ui dialog
           if (!showNativeUI && widget != null) {
             _alertDialog(widget);
@@ -46,7 +48,9 @@ class MethodChannelFlutterAppUpdatePackage
     });
   }
 
+
   void _listenToNativeMethod() {
+   
     if (Platform.isIOS) {
       methodChannel.setMethodCallHandler((call) {
         switch (call.method) {
@@ -55,20 +59,25 @@ class MethodChannelFlutterAppUpdatePackage
             break;
           case "closeDialog":
             if (_dialogOpen) {
+            
               _dialogOpen = false;
               _closeDialog();
             }
         }
         return Future.sync(() => _dialogOpen);
-      });
+      },
+    );  
     }
   }
+
 
   // while native dialog is open (in IOS), Flutter ui is still accessible
   // This dialog is solution for to prevent flutter ui access
   void _showIgnorePointerDialog() {
+    
     if (!_dialogOpen) {
       _dialogOpen = true;
+     
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -78,21 +87,24 @@ class MethodChannelFlutterAppUpdatePackage
           color: Colors.transparent,
         ),
       );
-    }
+     }
   }
 
   void _closeDialog() => Navigator.pop(context);
 
-  void _alertDialog(Widget widget) {
+  void _alertDialog(Widget widget,  ) {
+   
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
+      
         return WillPopScope(
           onWillPop: () async {
             return false;
           },
-          child: AlertDialog(
+          child: 
+          AlertDialog(
             content: widget,
           ),
         );
@@ -100,22 +112,25 @@ class MethodChannelFlutterAppUpdatePackage
     );
   }
 
-  Future<Map<String, dynamic>> _check() async {
+
+
+  Future<AppInfo> _check() async {
     String updateCheck = '';
     try {
       final result = await methodChannel.invokeMethod(
         'isUpdateAvailable',
       );
+      
       if (result != null && result is String) {
-        return Map<String, dynamic>.from(json.decode(result));
+        return AppInfo.fromJson(json.decode(result));
       }
-      return Map<String, dynamic>.from(((result ?? {}) as Map));
+      return AppInfo.fromJson((result ?? {}) as Map<String, dynamic>);
     } on PlatformException catch (e) {
       updateCheck = "Failed to check for update: '${e.message}'.";
     }
     if (kDebugMode) {
-      print(updateCheck);
+      print(AppInfo(updateData: UpdateData(updateCheck: updateCheck)));
     }
-    return {"exception": updateCheck};
+    return AppInfo(updateData: UpdateData(updateCheck: updateCheck));
   }
 }

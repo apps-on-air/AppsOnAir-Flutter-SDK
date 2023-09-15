@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 import 'flutter_app_update_package_method_channel.dart';
+import 'src/model/app_info_model.dart';
 
 abstract class FlutterAppUpdatePackagePlatform extends PlatformInterface {
   /// Constructs a FlutterAppUpdatePackagePlatform.
@@ -37,7 +38,8 @@ abstract class FlutterAppUpdatePackagePlatform extends PlatformInterface {
     BuildContext context, {
     required String appId,
     bool showNativeUI = true,
-    Widget? Function(Map<String, dynamic>)? customWidget,
+    Widget? Function(AppInfo)? customWidget,
+   
   }) {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
