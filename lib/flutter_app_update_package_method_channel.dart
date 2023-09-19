@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'flutter_app_update_package_platform_interface.dart';
 import 'src/model/app_info_model.dart';
 
@@ -21,15 +20,20 @@ class MethodChannelFlutterAppUpdatePackage
   ///[isShowNative] is used to show [customWidget]
   ///[isShowNative] turn it off if you want to show your [customWidget]
   /// you can show your [customWidget] ui
+  
   @override
   Future<void> initMethod(
     BuildContext context, {
     required String appId,
     bool showNativeUI = false,
     Widget? Function(AppInfo response)? customWidget,
+    EdgeInsetsGeometry? padding,
+    ShapeBorder? shape
+    
   }) async {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       this.context = context;
+
       final result = await methodChannel.invokeMethod(
           'setApplicationID', {"AppId": appId, "showNativeUI": showNativeUI});
       if (result) {
@@ -37,16 +41,34 @@ class MethodChannelFlutterAppUpdatePackage
         _listenToNativeMethod();
         final appUpdateResponse = await _check();
         if (customWidget != null) {
+        
+          
           final widget = customWidget.call(appUpdateResponse);
         
           ///custom ui dialog
           if (!showNativeUI && widget != null) {
-            _alertDialog(widget);
-          }
+            if(Platform.isAndroid){
+              if(appUpdateResponse.updateData?.isAndroidForcedUpdate == true || appUpdateResponse.updateData?.isAndroidUpdate == true){
+                _alertDialog(widget,
+                 padding: padding, shape: shape);
+                 }
+              }else{
+                if(appUpdateResponse.updateData?.isIosForcedUpdate == true || appUpdateResponse.updateData?.isIosUpdate == true){
+                   _alertDialog(widget,
+                 padding: padding, shape: shape);
+
+                }
+              }
+            }
+
+           
         }
       }
     });
   }
+
+
+
 
 
   void _listenToNativeMethod() {
@@ -92,27 +114,31 @@ class MethodChannelFlutterAppUpdatePackage
 
   void _closeDialog() => Navigator.pop(context);
 
-  void _alertDialog(Widget widget,  ) {
-   
+  void _alertDialog(Widget widget, {required EdgeInsetsGeometry? padding,required  ShapeBorder? shape}) {
+
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (context) {
-      
         return WillPopScope(
           onWillPop: () async {
             return false;
           },
           child: 
           AlertDialog(
-            content: widget,
+          
+
+            shape: shape ??   RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
           ),
+          contentPadding: padding ?? const EdgeInsets.symmetric(vertical: 5),
+            content: widget  
+             )
+         
         );
       },
     );
   }
-
-
 
   Future<AppInfo> _check() async {
     String updateCheck = '';
@@ -120,11 +146,17 @@ class MethodChannelFlutterAppUpdatePackage
       final result = await methodChannel.invokeMethod(
         'isUpdateAvailable',
       );
+      if (result != null && result.isNotEmpty   ) {
+
+      return  Platform.isIOS ? 
       
-      if (result != null && result is String) {
-        return AppInfo.fromJson(json.decode(result));
+      /// jsonData is getting with type Map<Object?, Object?> so while parsing we are getting error of type mismatch
+    /// so right now now we are using jsonEncode and jsonDecode to solve this
+    
+         AppInfo.fromJson(json.decode(json.encode( result)) ): AppInfo.fromJson(json.decode(result) );
       }
-      return AppInfo.fromJson((result ?? {}) as Map<String, dynamic>);
+   
+      return AppInfo.fromJson(( result ) );
     } on PlatformException catch (e) {
       updateCheck = "Failed to check for update: '${e.message}'.";
     }
@@ -132,5 +164,6 @@ class MethodChannelFlutterAppUpdatePackage
       print(AppInfo(updateData: UpdateData(updateCheck: updateCheck)));
     }
     return AppInfo(updateData: UpdateData(updateCheck: updateCheck));
+  
   }
 }

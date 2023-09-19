@@ -6,6 +6,7 @@ class AppInfo {
     bool? isMaintenance;
     UpdateData? updateData;
     MaintenanceData? maintenanceData;
+    
 
     AppInfo({
         this.appName,
@@ -17,6 +18,13 @@ class AppInfo {
     });
 
     factory AppInfo.fromJson(Map<String, dynamic> json) => AppInfo(
+
+      /// jsonData is getting with type Map<Object?, Object?> so while parsing we are getting error of type mismatch
+    /// so right now now we are using jsonEncode and jsonDecode to solve this
+  
+    // final encodedJson = jsonEncode(jsonData);
+    // final json = jsonDecode(encodedJson);
+    
         appName: json["appName"],
         appLogo: json["appLogo"],
         id: json["id"],
@@ -38,9 +46,9 @@ class AppInfo {
 class MaintenanceData {
     MaintenanceData();
 
-    factory MaintenanceData.fromJson(Map<String, dynamic> json) => MaintenanceData();
+    factory MaintenanceData.fromJson(Map json) => MaintenanceData();
 
-    Map<String, dynamic> toJson() => {};
+    Map toJson() => {};
 }
 
 class UpdateData {

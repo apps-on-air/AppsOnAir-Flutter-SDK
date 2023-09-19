@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:appsonair_flutter_sdk/apps_on_air_service.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +24,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,26 +50,33 @@ class _DemoApppState extends State<DemoAppp> {
    
     AppsOnAir.checkForAppUpdate(
       context,
-      ///use customWidget only if you want to use Your custom ui,
-      ///make sure to pass false in param [showNativeUI]
-      customWidget: 
+      padding: const EdgeInsets.all(15),
+      shape:  RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5),
+          ),
+
+     ///use customWidget only if you want to use Your custom ui,
+    ///make sure to pass false in param [showNativeUI]
+      
+  customWidget: (response) {
+    return  
     
-      (response) {
-        return
-         Column(
+    
+     Column(
          crossAxisAlignment: CrossAxisAlignment.start,
          mainAxisSize: MainAxisSize.min,
           children: [
          
           Padding(
             padding: const EdgeInsets.only(top: 20),
-            child: Text("${response.appName} : need an update "),
+            child: Text("${response.appName } : need an update "),
           ),
           
             Padding(
-           padding: const EdgeInsets.symmetric(vertical: 15),
-              child: Text(
-              "To use this app, download the latest version:${response.updateData?.androidBuildNumber}",
+              padding: const EdgeInsets.symmetric(vertical: 15),
+              child: Text(Platform.isAndroid ? 
+                
+              "To use this app, download the latest version:${response.updateData?.androidBuildNumber}":"To use this app, download the latest version:${response.updateData?.iosBuildNumber}"
                       ),
             ),
           Row(
@@ -80,10 +88,10 @@ class _DemoApppState extends State<DemoAppp> {
             ],
           )
         ]);
-        
-      },
-    );
+      },   
+     );
     super.initState();
+  
   }
 
   @override
