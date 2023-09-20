@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import 'flutter_app_update_package_platform_interface.dart';
+import 'src/model/app_info_model.dart';
 
 class AppsOnAir {
   ///
@@ -25,11 +26,16 @@ class AppsOnAir {
   static setAppId(String appId, {bool showNativeUI = false}) {
     _appId = appId;
     _showNativeUI = showNativeUI;
+    
   }
 
   static void checkForAppUpdate(
     BuildContext context, {
-    Widget? Function(Map<String, dynamic>)? customWidget,
+    Widget? Function(AppInfo)? customWidget,
+    EdgeInsetsGeometry? padding,
+    ShapeBorder? shape
+
+    
   }) {
     if (_appId.isNotEmpty) {
       if (!_showNativeUI && customWidget == null) {
@@ -37,14 +43,19 @@ class AppsOnAir {
           "set showNativeUI = 'true' in  setAppId()"
           " or/else return your custom widget in checkForAppUpdate() Method ",
         );
+      
       } else if (_showNativeUI && customWidget != null) {
         _printWarning(
             "set showNativeUI = 'false' to show custom ui in setAppId() or/else remove custom widget from checkForAppUpdate() method");
       }
-      FlutterAppUpdatePackagePlatform.instance.initMethod(context,
+      FlutterAppUpdatePackagePlatform.instance.initMethod(
+        context,
           appId: _appId,
           showNativeUI: _showNativeUI,
-          customWidget: customWidget);
+          customWidget: customWidget ,
+          padding: padding,
+          shape: shape
+          );
     } else {
       throw Exception(
           "Make sure you initialized AppsOnAir by calling initialize() method");
